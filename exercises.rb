@@ -138,8 +138,8 @@ def okay_two_sum?(array, target)
   (1...array.length).each do |i| # n worst case
     back = array[-i]
     next if back > target
-    (0..array.length).each do |j| # n worst case
-      break if j == array.length - i
+    (0...array.length - i).each do |j| # n worst case
+      # break if j == array.length - i
       front = array[j]
       break if front + back > target
       return true if front + back == target
