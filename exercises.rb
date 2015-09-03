@@ -123,3 +123,58 @@ def fourth_anagram_bonus(string1, string2)
 
   hash.values.all? { |arr| arr[0] == arr[1] }
 end
+
+def bad_two_sum?(array, target)
+  array.length.times do |i|
+    ((i + 1)...array.length).each do |j|
+      return true if array[i] + array[j] == target
+    end
+  end
+  false
+end
+
+def okay_two_sum?(array, target)
+  array.sort! # n * ln(n)
+  (1...array.length).each do |i| # n worst case
+    back = array[-i]
+    next if back > target
+    (0..array.length).each do |j| # n worst case
+      break if j == array.length - i
+      front = array[j]
+      break if front + back > target
+      return true if front + back == target
+    end
+  end
+
+  false
+end
+
+def okay_two_sum2?(array, target)
+  array.sort! # n * ln(n)
+  i = 0
+  j = array.length - 1
+  while i < j
+    return true if array[i] + array[j] == target
+    if array[i] + array[j] > target
+      j -= 1
+    else
+      i += 1
+    end
+  end
+
+  false
+end
+
+def best_two_sum?(array, target)
+  hash = Hash.new { |h,k| h[k] = Array.new(2,0) }
+  array.each_with_index do |el, idx|
+    key = target - el
+    hash[key] = [el, idx]
+  end
+
+  array.each_with_index do |el, idx|
+    return true if hash.include?(el) && hash[el] != [el, idx]
+  end
+
+  false
+end
