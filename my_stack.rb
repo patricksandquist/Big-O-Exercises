@@ -9,11 +9,8 @@ class MyStack
 
   def pop
     element = @store.pop
-    if element[0] == @max
-      @max = element[1]
-    elsif element[0] == @min
-      @min = element[1]
-    end
+    @max = element[1] if element[0] == @max
+    @min = element[1] if element[0] == @min
 
     element[0]
   end
@@ -29,7 +26,7 @@ class MyStack
     end
 
     element = [value, nil] if value < @max && value > @min
-    
+
     @store.push(element)
   end
 
