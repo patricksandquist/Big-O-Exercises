@@ -178,3 +178,17 @@ def best_two_sum?(array, target)
 
   false
 end
+
+def my_permutation(array)
+  return [array] if array.length < 2
+  all_perms = []
+  array.each do |el|
+    temp_array = array - [el]
+    perms = my_permutation(temp_array)
+    perms.each do |perm|
+      all_perms << ([el] + perm)
+    end
+  end
+  all_perms
+
+end
